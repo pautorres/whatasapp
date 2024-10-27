@@ -8,15 +8,17 @@ const fs = require("fs");
 
 const menuPath = path.join(__dirname, "mensajes", "menu.txt");
 const menu = fs.readFileSync(menuPath, "utf-8");
-const flowTalles = addKeyword(EVENTS.ACTION).addAnswer(["Para ver nuestra guía de talles entrá acá: https://nativodelpago.com/guia-de-talles/", "Si tenes más dudas responde '_menu_' u '_hola_'."]);
+const flowTalles = addKeyword(EVENTS.ACTION).addAnswer(["Para ver nuestra guía de talles entre acá: https://nativodelpago.com/guia-de-talles/", "Si tiene más dudas responda '_menu_' u '_hola_'."]);
 
 const flowEntregaTrue = addKeyword("entrega").addAnswer("¡Gracias por su compra! Lo pondremos en contacto con un representante. Mientras tanto, por favor, escriba un posible _lugar de encuentro_ o su _domicilio_.");
-const flowEntrega = addKeyword(EVENTS.ACTION).addAnswer("Las entregas en Salta Capital se realizan en la Zona Centro de 1 a 3 días habiles.").addAnswer(["Si ya realizo la compra de un artículo y desea coordinar la entrega escriba: *_entrega_*"], null, null, [flowEntregaTrue]);
+const flowEntrega = addKeyword(EVENTS.ACTION).addAnswer("Las entregas en Salta Capital se realizan en la Zona Centro de 1 a 3 días habiles después del pago.").addAnswer(["Si ya realizo la compra de un artículo y desea coordinar la entrega escriba: *_entrega_*. De lo contrario, si tiene otras dudas responda '_menu_' u '_hola_'."], null, null, [flowEntregaTrue]);
+
+const flowCYDTrue = addKeyword("si").addAnswer("Responda con su número de pedido y una foto de los articulos que compró. El vendedor responderá pronto.");
 
 const flowCamYDevo = addKeyword(EVENTS.ACTION)
-	.addAnswer("Gracias por comunicarte. En NATIVO, ofrecemos la posibilidad de realizar cambios o devoluciones en un plazo de 3 días hábiles desde la llegada de tu remera. Estos son los pasos para procesar un cambio o devolución:")
-	.addAnswer(["1. *Contáctanos*: Responde a este mensaje o envíanos un correo con tu número de pedido y motivo de cambio/devolución.", "2. *Estado de la prenda*: La remera debe estar sin uso, en su estado original.", "3. *Costos de envío*: Los costos de envío para cambios o devoluciones estarán a cargo del cliente, salvo en caso de que la prenda presente un defecto de fábrica."])
-	.addAnswer("Si querés proceder envia tus datos, pronto el vendedor se comunicará contigo. Si tenés otras dudas responde '_menu_' u '_hola_'.");
+	.addAnswer("Gracias por comunicarte. En NATIVO, ofrecemos la posibilidad de realizar cambios o devoluciones en un plazo de 4 días hábiles desde la llegada de tu remera.")
+	.addAnswer(["Además, la remera debe estar sin uso, en su estado original.", " Los costos de envío para cambios o devoluciones estarán a cargo del cliente, salvo en el caso de que la prenda presente un defecto de fábrica."])
+	.addAnswer(["Si desea realizar el proceso de Cambio o Devolución escriba *_si_*. De lo contrario, si tiene otro tipo de dudas responda '_menu_' u '_hola_'."], null, null, [flowCYDTrue]);
 
 const flowSeguimiento = addKeyword(EVENTS.ACTION).addAnswer("Si ya realizaste una compra, envianos el código de orden que llegó al mail con el que te registraste en nuestra página.");
 
